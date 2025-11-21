@@ -1,6 +1,6 @@
 package com.bil372.mhrsproject.controllers;
 
-import com.bil372.mhrsproject.entities.WaitingList;
+import com.bil372.mhrsproject.DTOs.WaitingListDTO;
 import com.bil372.mhrsproject.services.WaitingListService;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,12 +18,12 @@ public class WaitingListController {
     }
 
     @GetMapping("/doctor/{doctorNationalId}") //GET istegi httpden
-    public List<WaitingList> getDoctorWaitingList(@PathVariable long doctorNationalId) {
+    public List<WaitingListDTO> getDoctorWaitingList(@PathVariable long doctorNationalId) {
         return waitingListService.getDoctorWaitingList(doctorNationalId);
     }
     
     @GetMapping("/patient/{patientNationalId}")
-    public List<WaitingList> getPatientWaitingList(@PathVariable long patientNationalId) {
+    public List<WaitingListDTO> getPatientWaitingList(@PathVariable long patientNationalId) {
         return waitingListService.getPatientWaitingList(patientNationalId);
     }
 }
