@@ -17,7 +17,10 @@ public class waitingListService {
     }
 
     public List<waitingList> getDoctorWaitingList(long doctorNationalId){
-        return WaitingListRepository.findBydoctorNationalId(doctorNationalId);
+        System.out.println("Doctor ID = " + doctorNationalId);
+        List<waitingList> result = WaitingListRepository.findBydoctorNationalId(doctorNationalId);
+        System.out.println("Result size = " + (result == null ? "null" : result.size()));
+        return result;
     }
 
     public List<waitingList> getPatientWaitingList(long patientNationalId){
