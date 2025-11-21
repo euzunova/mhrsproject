@@ -18,12 +18,12 @@ public class waitingListController {
     }
 
     @GetMapping("/doctor/{doctorNationalId}") //GET istegi httpden
-    public List<waitingList> getDoctorWaitingList(@PathVariable String doctorNationalId) {
+    public List<waitingList> getDoctorWaitingList(@PathVariable long doctorNationalId) {
         return waitingListService.getDoctorWaitingList(doctorNationalId);
     }
     
     @GetMapping("/patient/{patientNationalId}")
-    public List<waitingList> getPatientWaitingList(@PathVariable String patientNationalId) {
+    public List<waitingList> getPatientWaitingList(@PathVariable long patientNationalId) {
         return waitingListService.getPatientWaitingList(patientNationalId);
     }
 }

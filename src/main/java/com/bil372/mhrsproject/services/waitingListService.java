@@ -16,11 +16,11 @@ public class waitingListService {
         this.WaitingListRepository = waitingListRepository;
     }
 
-    public List<waitingList> getDoctorWaitingList(String doctorNationalId){
+    public List<waitingList> getDoctorWaitingList(long doctorNationalId){
         return WaitingListRepository.findBydoctorNationalId(doctorNationalId);
     }
 
-    public List<waitingList> getPatientWaitingList(String patientNationalId){
+    public List<waitingList> getPatientWaitingList(long patientNationalId){
         return WaitingListRepository.findBypatientNationalId(patientNationalId);
     }
 
