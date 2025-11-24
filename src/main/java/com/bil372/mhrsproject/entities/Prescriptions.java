@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -15,20 +13,22 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
-@Table(name= "waiting_list")
+@Table(name = "prescriptions")
 @Entity
-public class WaitingList {
+public class Prescriptions {
+
     @Id
-    @Column(name = "waitingId")
-    private int waitingId;
+    @Column(name = "prescriptionId")
+    private int prescriptionId;
 
-    @Column(name = "level")
-    private String level;
+    @Column(name="appointmendId")
+    private int appointmendId;
 
-    @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name = "doctorNationalId")
-    private Doctor doctor;
+    @Column(name = "doctorNationalId")
+    private long doctorNationalId;
+
+    @Column(name = "patientNationalId")
+    private long patientNationalId;
 
     @ManyToOne
     @JoinColumn(name = "hospitalId")
@@ -38,10 +38,13 @@ public class WaitingList {
     @JoinColumn(name = "departmentId")
     private HospitalDepartment department;
 
-    @ManyToOne
-    @JoinColumn(name = "patientNationalId")
-    private Patient patient;
-
+    @Column(name = "prescriptionDateTime")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime requestDateTime;
+    private LocalDateTime prescriptionDateTime;
+
+    @Column(name = "diagnosis")
+    private String diagnosis;
+
+    @Column(name = "notes")
+    private String notes;
 }

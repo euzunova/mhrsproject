@@ -11,10 +11,10 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
     //doctoru id ile bulmak
     Optional<Doctor> findByDoctorNationalId(long doctorNationalId);
 
-    // Hastaneye göre doktor listesi istersen
+    // Hastaneye göre doktor listesi
     List<Doctor> findByHospitalId(int hospitalId);
 
     // Departmana göre doktor listesi
-    List<Doctor> findByDepartmentId(int departmentId);
+    List<Doctor> findByHospitalAndDepartmentId(int hospitalId,int departmentId);
 }
 

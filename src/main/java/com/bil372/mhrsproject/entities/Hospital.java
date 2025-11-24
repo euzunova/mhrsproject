@@ -2,8 +2,7 @@ package com.bil372.mhrsproject.entities;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -16,9 +15,25 @@ import lombok.Data;
 @Table(name = "hospitals")
 @Entity
 public class Hospital {
-    @JsonManagedReference
     @OneToMany(mappedBy = "hospital", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<HospitalDepartment> hospitalDepartments;
+
+    @OneToMany(mappedBy = "hospital", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Doctor> hospitalDoctors;
+
+    @OneToMany(mappedBy = "hospital", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<WaitingList> waitingLists;
+
+    @OneToMany(mappedBy = "hospital", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<AppointmentSlots> appointmentSlots;
+
+    @OneToMany(mappedBy = "hospital", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Prescriptions> prescriptions;
 
     @Id
     @Column(name = "hospitalId")
