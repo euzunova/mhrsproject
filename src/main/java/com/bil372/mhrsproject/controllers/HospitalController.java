@@ -22,9 +22,11 @@ public class HospitalController {
         this.hospitalService = hospitalService;
     }
 
-    @GetMapping("/byCity/{city}") //get istegi httpden
-    public List<Hospital> getHospitalByName(@PathVariable String city) {
-        return hospitalService.getHospitalsByCity(city);
+    @GetMapping("/search")
+    public List<Hospital> search(@RequestParam String city, @RequestParam(required = false) String district) {
+        
+        return hospitalService.getHospitalsByLocation(city, district);
+
     }
     
 }

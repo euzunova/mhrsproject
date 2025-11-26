@@ -28,8 +28,13 @@ public class HospitalService {
         this.hospitalRepository = hospitalRepository;
     }
 
-    public List<Hospital> getHospitalsByCity(String city){
-        List<Hospital> hospitals = hospitalRepository.findByCity(city);
-        return hospitals;
+
+    public List<Hospital> getHospitalsByLocation(String city, String district) {
+        if( district == null || district.isBlank() ){ //district yok
+            return hospitalRepository.findByCity(city);
+        }
+        else{
+            return hospitalRepository.findByCityAndDistrict(city, district);
+        }
     }
 }
