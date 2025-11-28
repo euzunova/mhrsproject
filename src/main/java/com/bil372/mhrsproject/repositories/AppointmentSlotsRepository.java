@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.bil372.mhrsproject.entities.AppointmentSlot;
 import com.bil372.mhrsproject.entities.Doctor;
+import com.bil372.mhrsproject.entities.Hospital;
+import com.bil372.mhrsproject.entities.HospitalDepartment;
 import com.bil372.mhrsproject.entities.Patient;
 
 public interface AppointmentSlotsRepository extends JpaRepository<AppointmentSlot, Integer> {
@@ -15,14 +17,22 @@ public interface AppointmentSlotsRepository extends JpaRepository<AppointmentSlo
     
     List<AppointmentSlot> findByDoctor(Doctor doctor);
 
-    List<AppointmentSlot> findByDoctorNationalId(long doctorNationalId);
+    List<AppointmentSlot> findByDoctor_DoctorNationalId(long doctorNationalId);
 
     List<AppointmentSlot> findByPatient(Patient patient);
 
-    List<AppointmentSlot> findByPatientNationalId(long patientNationalId);
+    List<AppointmentSlot> findByPatient_PatientNationalId(long patientNationalId);
 
-    List<AppointmentSlot> findByHospitalIdAndDepartmentId(int hospitalId, int departmentId);
+    List<AppointmentSlot> findByHospitalAndDepartment(
+    Hospital hospital,
+    HospitalDepartment department
+    );
 
-    List<AppointmentSlot> findByHospitalIdAndDepartmentIdAndSlotDateTime(int hospitalId, int departmentId, LocalDateTime slotDateTime);
+    List<AppointmentSlot> findByHospitalAndDepartmentAndSlotDateTime(
+    Hospital hospital,
+    HospitalDepartment department,
+    LocalDateTime slotDateTime
+    );
+
     
 }

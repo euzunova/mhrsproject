@@ -1,7 +1,9 @@
 package com.bil372.mhrsproject.services.security;
 
+import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -38,22 +40,21 @@ public class CustomUserDetailsService implements UserDetailsService{
             Optional<Doctor> doctorOpt = doctorRepository.findByDoctorNationalId(nationalId);
             if (doctorOpt.isPresent()) {
                 Doctor d = doctorOpt.get();
-                return User.builder()
-                        .username(username)
-                        .password(d.getPassword())  // sifre geldiginde acilacak
-                        .roles("DOCTOR")
-                        .build();
+                return new MyUserDetails(d.getDoctorNationalId(), 
+                                        d.getPassword(), 
+                                        List.of(new SimpleGrantedAuthority("ROLE_DOCTOR"))
+                );
             }
 
             // 2) Hasta dene
             Optional<Patient> patientOpt = patientRepository.findByPatientNationalId(nationalId);
             if (patientOpt.isPresent()) {
                 Patient p = patientOpt.get();
-                return User.builder()
-                        .username(username)
-                        .password(p.getPassword())  // sifre geldiginde acilacak
-                        .roles("PATIENT")
-                        .build();
+                return new MyUserDetails(
+                        p.getPatientNationalId(),
+                        p.getPassword(),
+                        List.of(new SimpleGrantedAuthority("ROLE_PATIENT"))
+                );
             }
 
         } catch (NumberFormatException e) {

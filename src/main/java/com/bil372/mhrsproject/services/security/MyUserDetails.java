@@ -9,7 +9,7 @@ public class MyUserDetails extends User {
     private final long nationalId;
 
     public MyUserDetails(long nationalId, String password, Collection<GrantedAuthority> roles){
-        super(password, password, roles);
+        super(String.valueOf(nationalId), password, roles);
         this.nationalId = nationalId;
     }
 

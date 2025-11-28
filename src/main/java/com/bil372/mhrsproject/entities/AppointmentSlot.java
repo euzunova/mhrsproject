@@ -44,7 +44,7 @@ public class AppointmentSlot {
     @JoinColumn(name = "patientNationalId")
     private Patient patient;
 
-    @OneToMany(mappedBy = "appointment", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "appointmentSlot", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Prescription> appointmentPrescriptions;
 

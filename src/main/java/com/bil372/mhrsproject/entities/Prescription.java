@@ -28,7 +28,7 @@ public class Prescription {
 
     @ManyToOne
     @JoinColumn(name="appointmentId")
-    private AppointmentSlot appointment;
+    private AppointmentSlot appointmentSlot;
 
     @ManyToOne
     @JoinColumn(name = "doctorNationalId")

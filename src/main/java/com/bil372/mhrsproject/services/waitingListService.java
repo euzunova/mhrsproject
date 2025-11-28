@@ -28,7 +28,6 @@ public class WaitingListService {
     public List<WaitingListDTO> getDoctorWaitingList(long doctorNationalId){
         Doctor doctor = doctorRepository.findByDoctorNationalId(doctorNationalId).orElseThrow(() -> new RuntimeException("Doctor not found"));
         List<WaitingList> result = waitingListRepository.findByDoctor(doctor);
-        System.out.println("Result size = " + (result == null ? "null" : result.size()));
         return result.stream().map(this::waitinglistDTOMapper).toList();
     }
 

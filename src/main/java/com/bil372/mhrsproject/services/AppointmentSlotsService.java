@@ -20,22 +20,22 @@ public class AppointmentSlotsService {
     }
 
     public List<AppointmentSlot> getDoctorAppointmentSlots(long doctorNationalId){
-        List<AppointmentSlot> aSlots = aSlotsRepository.findByDoctorNationalId(doctorNationalId);
+        List<AppointmentSlot> aSlots = aSlotsRepository.findByDoctor_DoctorNationalId(doctorNationalId);
         return aSlots;
     }
     
     public List<AppointmentSlot> getPatientAppointmentSlots(long patientNationalId){
-        List<AppointmentSlot> aSlots = aSlotsRepository.findByPatientNationalId(patientNationalId);
+        List<AppointmentSlot> aSlots = aSlotsRepository.findByPatient_PatientNationalId(patientNationalId);
         return aSlots;
     }
 
     public List<AppointmentSlot> getHospitalAndDepartmentSlots(Hospital hospital, HospitalDepartment hospitalDepartment){
-        List<AppointmentSlot> aSlots = aSlotsRepository.findByHospitalIdAndDepartmentId(hospital.getHospitalId(), hospitalDepartment.getDepartmentId());
+        List<AppointmentSlot> aSlots = aSlotsRepository.findByHospitalAndDepartment(hospital, hospitalDepartment);
         return aSlots;
     }
 
     public List<AppointmentSlot> getHospitalAndDepartmentAndSlotDateTime(Hospital hospital,  HospitalDepartment hospitalDepartment, LocalDateTime dateTime){
-        List<AppointmentSlot> aSlots = aSlotsRepository.findByHospitalIdAndDepartmentIdAndSlotDateTime(hospital.getHospitalId(), hospitalDepartment.getDepartmentId(), dateTime);
+        List<AppointmentSlot> aSlots = aSlotsRepository.findByHospitalAndDepartmentAndSlotDateTime(hospital, hospitalDepartment, dateTime);
         return aSlots;
     }
 }

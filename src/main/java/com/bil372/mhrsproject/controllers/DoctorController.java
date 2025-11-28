@@ -7,8 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bil372.mhrsproject.DTOs.ASlotDTO;
 import com.bil372.mhrsproject.DTOs.DoctorDTO;
+import com.bil372.mhrsproject.DTOs.PrescriptionsDTO;
 import com.bil372.mhrsproject.DTOs.WaitingListDTO;
+import com.bil372.mhrsproject.DTOs.Mappers.AppointmentSlotMapper;
+import com.bil372.mhrsproject.DTOs.Mappers.PrescriptionMapper;
 import com.bil372.mhrsproject.entities.AppointmentSlot;
 import com.bil372.mhrsproject.entities.Doctor;
 import com.bil372.mhrsproject.entities.Prescription;
@@ -17,8 +21,6 @@ import com.bil372.mhrsproject.services.DoctorService;
 import com.bil372.mhrsproject.services.PrescriptionsService;
 import com.bil372.mhrsproject.services.WaitingListService;
 import com.bil372.mhrsproject.services.security.MyUserDetails;
-import org.springframework.web.bind.annotation.RequestParam;
-
 
 
 
@@ -45,15 +47,17 @@ public class DoctorController {
     }
 
     @GetMapping("/prescriptions")
-    public List<Prescription> getPrescriptions(@AuthenticationPrincipal MyUserDetails user) {
+    public List<PrescriptionsDTO> getPrescriptions(@AuthenticationPrincipal MyUserDetails user) {
         long doctorNationalId = user.getNationalId();
-        return prescriptionsService.getDoctorPrescriptionsByNationalId(doctorNationalId);
+        List<Prescription> prescriptions = prescriptionsService.getDoctorPrescriptionsByNationalId(doctorNationalId);
+        return PrescriptionMapper.toDTOList(prescriptions);
     }
 
     @GetMapping("/appointments")
-    public List<AppointmentSlot> getAppointmentSlots(@AuthenticationPrincipal MyUserDetails user) {
+    public List<ASlotDTO> getAppointmentSlots(@AuthenticationPrincipal MyUserDetails user) {
         long doctorNationalId = user.getNationalId();
-        return appointmentSlotsService.getDoctorAppointmentSlots(doctorNationalId);
+        List<AppointmentSlot> slots = appointmentSlotsService.getDoctorAppointmentSlots(doctorNationalId);
+        return AppointmentSlotMapper.toASlotDTOList(slots);
     }
     
     

@@ -8,8 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bil372.mhrsproject.DTOs.ASlotDTO;
 import com.bil372.mhrsproject.DTOs.PatientDTO;
+import com.bil372.mhrsproject.DTOs.PrescriptionsDTO;
 import com.bil372.mhrsproject.DTOs.WaitingListDTO;
+import com.bil372.mhrsproject.DTOs.Mappers.AppointmentSlotMapper;
+import com.bil372.mhrsproject.DTOs.Mappers.PrescriptionMapper;
 import com.bil372.mhrsproject.entities.AppointmentSlot;
 import com.bil372.mhrsproject.entities.Patient;
 import com.bil372.mhrsproject.entities.Prescription;
@@ -18,8 +22,6 @@ import com.bil372.mhrsproject.services.PatientService;
 import com.bil372.mhrsproject.services.PrescriptionsService;
 import com.bil372.mhrsproject.services.WaitingListService;
 import com.bil372.mhrsproject.services.security.MyUserDetails;
-import org.springframework.web.bind.annotation.RequestParam;
-
 
 @RestController
 @RequestMapping("/api/patient")
@@ -45,9 +47,10 @@ public class PatientController {
     }
 
     @GetMapping("/prescriptions")
-    public List<Prescription> getPrescriptions(@AuthenticationPrincipal MyUserDetails user) {
+    public List<PrescriptionsDTO> getPrescriptions(@AuthenticationPrincipal MyUserDetails user) {
         long patientNationalId = user.getNationalId();
-        return prescriptionsService.getPatientPrescriptionsByNationalId(patientNationalId);
+        List<Prescription> prescriptions = prescriptionsService.getPatientPrescriptionsByNationalId(patientNationalId);
+        return PrescriptionMapper.toDTOList(prescriptions);
     }
 
     @GetMapping("/info")
@@ -58,9 +61,10 @@ public class PatientController {
     }
 
     @GetMapping("/appointments")
-    public List<AppointmentSlot> getPatientAppointmentSlots(@AuthenticationPrincipal MyUserDetails user) {
+    public List<ASlotDTO> getPatientAppointmentSlots(@AuthenticationPrincipal MyUserDetails user) {
         long patientNationalId = user.getNationalId();
-        return appointmentSlotsService.getPatientAppointmentSlots(patientNationalId);
+        List<AppointmentSlot> slots = appointmentSlotsService.getPatientAppointmentSlots(patientNationalId);
+        return AppointmentSlotMapper.toASlotDTOList(slots);
     }
     
 
