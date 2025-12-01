@@ -2,19 +2,16 @@ package com.bil372.mhrsproject.controllers;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bil372.mhrsproject.DTOs.AdminDashboardSummaryDTO;
-import com.bil372.mhrsproject.DTOs.HospitalDTO;
 import com.bil372.mhrsproject.DTOs.WaitingListDTO;
-import com.bil372.mhrsproject.entities.Hospital;
 import com.bil372.mhrsproject.services.AdminDashboardService;
-import com.bil372.mhrsproject.services.HospitalService;
 import com.bil372.mhrsproject.services.WaitingListService;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
@@ -35,6 +32,7 @@ public class AdminController {
     }
 
     @GetMapping("/dashboardSummary")
+    @PreAuthorize("hasRole('ADMIN')")
     public AdminDashboardSummaryDTO getAdminDashboardSummaryDTO(Authentication authentication) {
         return adminDashboardService.getSummary();
     }

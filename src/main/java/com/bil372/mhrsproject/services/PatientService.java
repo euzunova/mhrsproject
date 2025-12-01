@@ -22,7 +22,7 @@ public class PatientService {
 
     public PatientDTO toPatientDTO(Patient patient){
         PatientDTO patientDTO = new PatientDTO();
-        patientDTO.setBloodType(patient.getBloodType());
+        patientDTO.setBloodGroup(patient.getBloodType());
         patientDTO.setFirstName(patient.getFirstName());
         patientDTO.setHeightCm(patient.getHeightCm());
         patientDTO.setLastName(patient.getLastName());

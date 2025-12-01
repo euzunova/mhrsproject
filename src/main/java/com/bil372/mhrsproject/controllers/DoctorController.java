@@ -2,6 +2,7 @@ package com.bil372.mhrsproject.controllers;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,9 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bil372.mhrsproject.DTOs.ASlotDTO;
 import com.bil372.mhrsproject.DTOs.DoctorDTO;
+import com.bil372.mhrsproject.DTOs.DoctorFutureAppointmentDTO;
+import com.bil372.mhrsproject.DTOs.DoctorPastAppointmentDTO;
 import com.bil372.mhrsproject.DTOs.PrescriptionsDTO;
 import com.bil372.mhrsproject.DTOs.WaitingListDTO;
 import com.bil372.mhrsproject.DTOs.Mappers.AppointmentSlotMapper;
+import com.bil372.mhrsproject.DTOs.Mappers.DoctorFutureAppointmentMapper;
+import com.bil372.mhrsproject.DTOs.Mappers.DoctorPastAppointmentMapper;
 import com.bil372.mhrsproject.DTOs.Mappers.PrescriptionMapper;
 import com.bil372.mhrsproject.entities.AppointmentSlot;
 import com.bil372.mhrsproject.entities.Doctor;
@@ -53,14 +58,20 @@ public class DoctorController {
         return PrescriptionMapper.toDTOList(prescriptions);
     }
 
-    @GetMapping("/appointments")
-    public List<ASlotDTO> getAppointmentSlots(@AuthenticationPrincipal MyUserDetails user) {
-        long doctorNationalId = user.getNationalId();
-        List<AppointmentSlot> slots = appointmentSlotsService.getDoctorAppointmentSlots(doctorNationalId);
-        return AppointmentSlotMapper.toASlotDTOList(slots);
+    @GetMapping("/past-appointments")
+    public List<DoctorPastAppointmentDTO> getPastAppointments(@AuthenticationPrincipal MyUserDetails user) {
+        long docId = user.getNationalId();
+        List<AppointmentSlot> past = appointmentSlotsService.getDoctorPastAppointmentSlots(docId);
+        return DoctorPastAppointmentMapper.toPastDTOList(past);
     }
-    
-    
+
+    @GetMapping("/future-appointments")
+    public List<DoctorFutureAppointmentDTO> getFutureAppointments(@AuthenticationPrincipal MyUserDetails user) {
+        long doctorId = user.getNationalId();
+        List<AppointmentSlot> future = appointmentSlotsService.getDoctorFutureAppointmentSlots(doctorId);
+        return DoctorFutureAppointmentMapper.toFutureDTOList(future);
+    }
+
     @GetMapping("/info")
     public DoctorDTO getDoctorDTO(@AuthenticationPrincipal MyUserDetails user) {
         Doctor doctor = doctorService.getDoctorByNational(user.getNationalId());

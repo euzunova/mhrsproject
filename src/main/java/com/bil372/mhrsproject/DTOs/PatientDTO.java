@@ -14,6 +14,6 @@ public class PatientDTO {
     private String lastName;
     private int heightCm;
     private int weightKg;
-    private String bloodType;
+    private String bloodGroup;
 
 }

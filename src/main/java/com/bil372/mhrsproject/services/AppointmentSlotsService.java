@@ -23,7 +23,17 @@ public class AppointmentSlotsService {
         List<AppointmentSlot> aSlots = aSlotsRepository.findByDoctor_DoctorNationalId(doctorNationalId);
         return aSlots;
     }
+
+    public List<AppointmentSlot> getDoctorPastAppointmentSlots(long doctorNationalId){
+        List<AppointmentSlot> aSlots = aSlotsRepository.findByDoctor_DoctorNationalIdAndSlotDateTimeBefore(doctorNationalId, LocalDateTime.now());
+        return aSlots;
+    }
     
+    public List<AppointmentSlot> getDoctorFutureAppointmentSlots(long doctorNationalId){
+        List<AppointmentSlot> aSlots = aSlotsRepository.findByDoctor_DoctorNationalIdAndSlotDateTimeAfter(doctorNationalId, LocalDateTime.now());
+        return aSlots;
+    }
+
     public List<AppointmentSlot> getPatientAppointmentSlots(long patientNationalId){
         List<AppointmentSlot> aSlots = aSlotsRepository.findByPatient_PatientNationalId(patientNationalId);
         return aSlots;

@@ -24,10 +24,13 @@ public class ASlotDTO {
 
     // Department
     private int departmentId;
-    private String departmentName; // branchName
+    private String departmentName;
 
     // Patient
     private Long patientNationalId;
     private String patientFirstName;
     private String patientLastName;
+
+    // OPTIONAL prescription info (nullable)
+    private Integer prescriptionId;
 }
